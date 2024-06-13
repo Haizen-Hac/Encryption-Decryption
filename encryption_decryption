@@ -1,0 +1,68 @@
+from cryptography.fernet import Fernet
+
+def generate_key():
+    key = Fernet.generate_key()
+    return key
+
+def encrypt_data(key, data):
+    cipher_suite = Fernet(key)
+    cipher_text = cipher_suite.encrypt(data.encode())
+    return cipher_text
+
+def decrypt_data(key, cipher_text):
+    cipher_suite = Fernet(key)
+    plain_text = cipher_suite.decrypt(cipher_text)
+    return plain_text.decode()
+
+def main():
+    print("Welcome to the encryption/decryption tool!")
+    print()
+    while True:
+        print("Please choose an option:")
+        print("1. Generate a key")
+        print("2. Encrypt data")
+        print("3. Decrypt data")
+        print("4. Quit")
+        print()
+        choice = input("Enter your choice (1/2/3/4): ")
+        print()
+
+        if choice == "1":
+            print()
+            key = generate_key()
+            print()
+            print("Your key is:", key.decode())
+            print()
+            print("Please keep this key safe and secure.")
+            print()
+        elif choice == "2":
+            print()
+            key = input("Enter your key: ")
+            key = key.encode()
+            print()
+            data = input("Enter the data to encrypt: ")
+            cipher_text = encrypt_data(key, data)
+            print()
+            print("The encrypted data is:", cipher_text)
+            print()
+        elif choice == "3":
+            print()
+            key = input("Enter your key: ")
+            key = key.encode()
+            print()
+            cipher_text = input("Enter the data to decrypt: ")
+            cipher_text = cipher_text.encode()
+            plain_text = decrypt_data(key, cipher_text)
+            print()
+            print("The decrypted data is:", plain_text)
+            print()
+        elif choice == "4":
+            print()
+            print("Goodbye!")
+            print()
+            break
+        else:
+            print("Invalid choice. Please choose a valid option.")
+
+if __name__ == "__main__":
+    main()
